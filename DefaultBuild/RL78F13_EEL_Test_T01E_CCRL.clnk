@@ -1,0 +1,34 @@
+-Input=DefaultBuild\cstart.obj
+-Input=DefaultBuild\hdwinit.obj
+-Input=DefaultBuild\main.obj
+-Input=DefaultBuild\stkinit.obj
+-Input=DefaultBuild\eel_descriptor.obj
+-Input=DefaultBuild\fdl_descriptor.obj
+-LIBrary=eel.lib
+-LIBrary=fdl.lib
+-SECURITY_ID=00000000000000000000
+-DEVICE=D:\Program Files (x86)\Renesas Electronics\CS+\CC\Device\RL78\Devicefile\DR5F10BGG.DVF
+-DEBug
+-NOCOmpress
+-NOOPtimize
+-OUtput=DefaultBuild\RL78F13_EEL_Test_T01E_CCRL.abs
+-LIBrary=D:\Program Files (x86)\Renesas Electronics\CS+\CC\CC-RL\V1.03.00\lib\rl78em4s.lib
+-LIBrary=D:\Program Files (x86)\Renesas Electronics\CS+\CC\CC-RL\V1.03.00\lib\malloc_n.lib
+-LIBrary=D:\Program Files (x86)\Renesas Electronics\CS+\CC\CC-RL\V1.03.00\lib\rl78em4r.lib
+-OCDBG=84
+-DEBUG_MONITOR=1FE00-1FFFF
+-USER_OPT_BYTE=EFFFEA
+-LISt=DefaultBuild\RL78F13_EEL_Test_T01E_CCRL.map
+-STARt=.const,EEL_CNST_f,FAL_CNST_f,.text,.RLIB,.SLIB,.textf,.constf,.data,.sdata,EEL_CODE,FAL_CODE/02000,.dataR,.bss,EEL_UDAT_n/FE300,.sdataR,.sbss,EEL_SDAT,FAL_DATA/FFE20
+-ROm=.data=.dataR
+-ROm=.sdata=.sdataR
+-NOMessage
+-MEMory=High
+-NOLOgo
+-end
+-Input=DefaultBuild\RL78F13_EEL_Test_T01E_CCRL.abs
+-OUtput=DefaultBuild\RL78F13_EEL_Test_T01E_CCRL.mot
+-FOrm=Stype
+-NOMessage
+-exit
+

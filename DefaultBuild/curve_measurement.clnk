@@ -1,0 +1,45 @@
+-Input=DefaultBuild\cstart.obj
+-Input=DefaultBuild\main.obj
+-Input=DefaultBuild\stkinit.obj
+-Input=DefaultBuild\eel_descriptor.obj
+-Input=DefaultBuild\fdl_descriptor.obj
+-Input=DefaultBuild\r_cg_adc.obj
+-Input=DefaultBuild\r_cg_adc_user.obj
+-Input=DefaultBuild\r_cg_cgc.obj
+-Input=DefaultBuild\r_cg_cgc_user.obj
+-Input=DefaultBuild\r_cg_port.obj
+-Input=DefaultBuild\r_cg_port_user.obj
+-Input=DefaultBuild\r_cg_wdt.obj
+-Input=DefaultBuild\r_cg_wdt_user.obj
+-Input=DefaultBuild\hdwinit.obj
+-Input=DefaultBuild\r_cg_serial.obj
+-Input=DefaultBuild\r_cg_serial_user.obj
+-LIBrary=eel.lib
+-LIBrary=fdl.lib
+-SECURITY_ID=00000000000000000000
+-DEVICE=D:\Program Files (x86)\Renesas Electronics\CS+\CC\Device\RL78\Devicefile\DR5F10BGG.DVF
+-DEBug
+-NOCOmpress
+-NOOPtimize
+-OUtput=DefaultBuild\curve_measurement.abs
+-LIBrary=D:\Program Files (x86)\Renesas Electronics\CS+\CC\CC-RL\V1.08.00\lib\rl78em4s.lib
+-LIBrary=D:\Program Files (x86)\Renesas Electronics\CS+\CC\CC-RL\V1.08.00\lib\malloc_n.lib
+-LIBrary=D:\Program Files (x86)\Renesas Electronics\CS+\CC\CC-RL\V1.08.00\lib\rl78em4r.lib
+-OCDBG=84
+-DEBUG_MONITOR=1FE00-1FFFF
+-USER_OPT_BYTE=EFFFEA
+-LISt=DefaultBuild\curve_measurement.map
+-STARt=.const,EEL_CNST_f,FAL_CNST_f,.text,.RLIB,.SLIB,.textf,.constf,.data,.sdata,EEL_CODE,FAL_CODE/02000,.dataR,.bss,EEL_UDAT_n/FE300,.sdataR,.sbss,EEL_SDAT,FAL_DATA/FFE20
+-ROm=.data=.dataR
+-ROm=.sdata=.sdataR
+-NOMessage
+-MEMory=High
+-NOLOgo
+-end
+-Input=DefaultBuild\curve_measurement.abs
+-DEVICE=D:\Program Files (x86)\Renesas Electronics\CS+\CC\Device\RL78\Devicefile\DR5F10BGG.DVF
+-OUtput=DefaultBuild\curve_measurement.mot
+-FOrm=Stype
+-NOMessage
+-exit
+
