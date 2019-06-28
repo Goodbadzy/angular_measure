@@ -90,13 +90,16 @@ void main(void)
 	  ADC TEST CASE
 	  ========================================================*/
 	/* Enable ADC : ADCE = 1 */
-	R_ADC_Start();
+	R_ADC_Set_OperationOn();
 	  
 	/* Wirte data to z identifier */ 
 	for(i=0;i<0xffff;i++){my_data[0] = i;}; /* Delay by hand */
 	
 	/* Start ADC operation on : ADCS = 1 */	
-	R_ADC_Set_OperationOn(); /* Delay by hand */
+	R_ADC_Start();
+	
+	for(i=0;i<0xffff;i++){my_data[0] = i;}; /* Delay by hand */
+	
 
 	R_ADC_Get_Result(&GulAdcResultBuf[0]);
 	  

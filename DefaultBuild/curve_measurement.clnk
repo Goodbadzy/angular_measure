@@ -17,14 +17,14 @@
 -LIBrary=eel.lib
 -LIBrary=fdl.lib
 -SECURITY_ID=00000000000000000000
--DEVICE=D:\Program Files (x86)\Renesas Electronics\CS+\CC\Device\RL78\Devicefile\DR5F10BGG.DVF
+-DEVICE=D:\Program File\Renesas Electronics\CS+\CC\Device\RL78\Devicefile\DR5F10BGG.DVF
 -DEBug
 -NOCOmpress
 -NOOPtimize
 -OUtput=DefaultBuild\curve_measurement.abs
--LIBrary=D:\Program Files (x86)\Renesas Electronics\CS+\CC\CC-RL\V1.08.00\lib\rl78em4s.lib
--LIBrary=D:\Program Files (x86)\Renesas Electronics\CS+\CC\CC-RL\V1.08.00\lib\malloc_n.lib
--LIBrary=D:\Program Files (x86)\Renesas Electronics\CS+\CC\CC-RL\V1.08.00\lib\rl78em4r.lib
+-LIBrary=D:\Program File\Renesas Electronics\CS+\CC\CC-RL\V1.08.00\lib\rl78em4s.lib
+-LIBrary=D:\Program File\Renesas Electronics\CS+\CC\CC-RL\V1.08.00\lib\malloc_n.lib
+-LIBrary=D:\Program File\Renesas Electronics\CS+\CC\CC-RL\V1.08.00\lib\rl78em4r.lib
 -OCDBG=84
 -DEBUG_MONITOR=1FE00-1FFFF
 -USER_OPT_BYTE=EFFFEA
@@ -37,7 +37,7 @@
 -NOLOgo
 -end
 -Input=DefaultBuild\curve_measurement.abs
--DEVICE=D:\Program Files (x86)\Renesas Electronics\CS+\CC\Device\RL78\Devicefile\DR5F10BGG.DVF
+-DEVICE=D:\Program File\Renesas Electronics\CS+\CC\Device\RL78\Devicefile\DR5F10BGG.DVF
 -OUtput=DefaultBuild\curve_measurement.mot
 -FOrm=Stype
 -NOMessage
