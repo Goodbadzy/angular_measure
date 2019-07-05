@@ -204,6 +204,20 @@
       <TreeImageGuid>941832c1-fc3b-4e1b-94e8-01ea17128b42</TreeImageGuid>
       <ParentItem>1ff761b9-5395-44ce-90fc-e0597ec0604c</ParentItem>
     </Instance>
+    <Instance Guid="9e130eee-6210-41b5-8d25-ebeef8f3be86">
+      <Name>r_rl78_can_config.c</Name>
+      <Type>File</Type>
+      <RelativePath>code_generator\r_rl78_can_config.c</RelativePath>
+      <TreeImageGuid>941832c1-fc3b-4e1b-94e8-01ea17128b42</TreeImageGuid>
+      <ParentItem>1ff761b9-5395-44ce-90fc-e0597ec0604c</ParentItem>
+    </Instance>
+    <Instance Guid="96a86013-24be-4028-bb58-374933131b03">
+      <Name>r_rl78_can_drv.c</Name>
+      <Type>File</Type>
+      <RelativePath>code_generator\r_rl78_can_drv.c</RelativePath>
+      <TreeImageGuid>941832c1-fc3b-4e1b-94e8-01ea17128b42</TreeImageGuid>
+      <ParentItem>1ff761b9-5395-44ce-90fc-e0597ec0604c</ParentItem>
+    </Instance>
   </Class>
   <Class Guid="fb98844b-2c27-4275-9804-f6e63e204da0">
     <Instance Guid="fb98844b-2c27-4275-9804-f6e63e204da0">
@@ -293,7 +307,11 @@
       <SourceItemType16>CSource</SourceItemType16>
       <SourceItemGuid17>cf06f3d4-c1df-4440-ace4-f0e47d0b1f9b</SourceItemGuid17>
       <SourceItemType17>CSource</SourceItemType17>
-      <SourceItemCount>18</SourceItemCount>
+      <SourceItemGuid18>9e130eee-6210-41b5-8d25-ebeef8f3be86</SourceItemGuid18>
+      <SourceItemType18>CSource</SourceItemType18>
+      <SourceItemGuid19>96a86013-24be-4028-bb58-374933131b03</SourceItemGuid19>
+      <SourceItemType19>CSource</SourceItemType19>
+      <SourceItemCount>20</SourceItemCount>
       <LastDeviceChangedCounter>0</LastDeviceChangedCounter>
     </Instance>
     <Instance Guid="6bb7060d-7e24-4135-bd9b-7db166417523">
@@ -1006,6 +1024,14 @@
       <ItemAddTime>636955211772137844</ItemAddTime>
       <ItemAddTimeCount>1</ItemAddTimeCount>
     </Instance>
+    <Instance Guid="9e130eee-6210-41b5-8d25-ebeef8f3be86">
+      <ItemAddTime>636977402892290488</ItemAddTime>
+      <ItemAddTimeCount>0</ItemAddTimeCount>
+    </Instance>
+    <Instance Guid="96a86013-24be-4028-bb58-374933131b03">
+      <ItemAddTime>636977402892290488</ItemAddTime>
+      <ItemAddTimeCount>1</ItemAddTimeCount>
+    </Instance>
     <Instance Guid="0b7e78c3-aadd-45ee-9f9d-ffac6141eeb2">
       <TimeTagModified-SourceItem0--0>-8587035765755688732</TimeTagModified-SourceItem0--0>
       <SourceItem0-IsLockedByUser>False</SourceItem0-IsLockedByUser>
@@ -1073,6 +1099,14 @@
       <SourceItem17-IsLockedByUser>False</SourceItem17-IsLockedByUser>
       <SourceItem17-BuildingTarget-0>True</SourceItem17-BuildingTarget-0>
       <SourceItem17-IndividualCompileOption-0>False</SourceItem17-IndividualCompileOption-0>
+      <TimeTagModified-SourceItem18--0>-8586394921962485320</TimeTagModified-SourceItem18--0>
+      <SourceItem18-IsLockedByUser>False</SourceItem18-IsLockedByUser>
+      <SourceItem18-BuildingTarget-0>True</SourceItem18-BuildingTarget-0>
+      <SourceItem18-IndividualCompileOption-0>False</SourceItem18-IndividualCompileOption-0>
+      <TimeTagModified-SourceItem19--0>-8586394921962485320</TimeTagModified-SourceItem19--0>
+      <SourceItem19-IsLockedByUser>False</SourceItem19-IsLockedByUser>
+      <SourceItem19-BuildingTarget-0>True</SourceItem19-BuildingTarget-0>
+      <SourceItem19-IndividualCompileOption-0>False</SourceItem19-IndividualCompileOption-0>
     </Instance>
     <Instance Guid="e4582a76-90da-4988-9864-24db24826845">
       <TimeTagModified-SourceItem4--0>-8587035764234858732</TimeTagModified-SourceItem4--0>
@@ -1566,7 +1600,7 @@
       <DebuggerProperty-EssentialProperty-Clock-MainClockForOCD>0</DebuggerProperty-EssentialProperty-Clock-MainClockForOCD>
       <DebuggerProperty-EssentialProperty-Clock-SubClockForOCD>0</DebuggerProperty-EssentialProperty-Clock-SubClockForOCD>
       <DebuggerProperty-EssentialProperty-Clock-MonitorClock>System</DebuggerProperty-EssentialProperty-Clock-MonitorClock>
-      <DebuggerProperty-EssentialProperty-TargetConnect-TargetSupplyPower>Yes</DebuggerProperty-EssentialProperty-TargetConnect-TargetSupplyPower>
+      <DebuggerProperty-EssentialProperty-TargetConnect-TargetSupplyPower>No</DebuggerProperty-EssentialProperty-TargetConnect-TargetSupplyPower>
       <DebuggerProperty-EssentialProperty-TargetConnect-TargetSuppliedVoltage>Use5_0V</DebuggerProperty-EssentialProperty-TargetConnect-TargetSuppliedVoltage>
       <DebuggerProperty-EssentialProperty-HotPlugin-RetryingInterval>1000</DebuggerProperty-EssentialProperty-HotPlugin-RetryingInterval>
       <DebuggerProperty-EssentialProperty-HotPlugin-NumberOfTimesOfRetrying>3</DebuggerProperty-EssentialProperty-HotPlugin-NumberOfTimesOfRetrying>

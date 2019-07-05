@@ -14,6 +14,8 @@
 -Input=DefaultBuild\hdwinit.obj
 -Input=DefaultBuild\r_cg_serial.obj
 -Input=DefaultBuild\r_cg_serial_user.obj
+-Input=DefaultBuild\r_rl78_can_config.obj
+-Input=DefaultBuild\r_rl78_can_drv.obj
 -LIBrary=eel.lib
 -LIBrary=fdl.lib
 -SECURITY_ID=00000000000000000000

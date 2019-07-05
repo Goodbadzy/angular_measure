@@ -33,6 +33,8 @@
 #ifndef R_RL78_CAN_DRV_H
 #define R_RL78_CAN_DRV_H
 
+#include "r_rl78_can_sfr.h"
+
 typedef signed char         int8_t;
 typedef unsigned char       uint8_t;
 typedef signed short        int16_t;
@@ -64,7 +66,40 @@ typedef uint8_t can_txbuf_t;
 #define CAN_TXBUF3          3U
 #define CAN_MAX_TXBUF_NUM   4U
 
+/* ---- Channel ---- */
+typedef struct {
+    volatile uint16_t CnCFGL;
+    volatile uint16_t CnCFGH;
+    volatile uint16_t CnCTRL;
+    volatile uint16_t CnCTRH;
+    volatile uint16_t CnSTSL;
+    volatile uint16_t CnSTSH;
+    volatile uint16_t CnERFLL;
+    volatile uint16_t CnERFLH;
+} can_ch_top_sfr_t;
+
+typedef struct {
+    volatile uint16_t IDL;
+    volatile uint16_t IDH;
+    volatile uint16_t TS;
+    volatile uint16_t PTR;
+    volatile uint16_t DF0;
+    volatile uint16_t DF1;
+    volatile uint16_t DF2;
+    volatile uint16_t DF3;
+} can_frame_sfr_t;
+
+typedef struct {
+    volatile uint16_t IDL;
+    volatile uint16_t IDH;
+    volatile uint16_t ML;
+    volatile uint16_t MH;
+    volatile uint16_t PL;
+    volatile uint16_t PH;
+} can_rxrule_sfr_t;
+
 /* ---- CAN frame ----- */
+#if 0 /* zhanyi : no this kinds of */
 typedef struct
 {
     uint16_t IDL:16;   /* ID Data (low)                      */
@@ -77,6 +112,7 @@ typedef struct
     uint16_t DLC :4;   /* DLC Data                           */
     uint8_t  DB[8];    /* Data Byte                          */
 } can_frame_t;
+#endif 
 
 extern const uint8_t       g_rxfifo0_use_mode;
 extern const uint8_t       g_rxfifo1_use_mode;
@@ -113,16 +149,17 @@ extern const uint16_t g_rxrule_table[][6];
 /******************************************************************************
 Exported global functions (to be accessed by other files)
 ******************************************************************************/
+extern void R_CAN_Create(void);
 extern Can_RtnType R_CAN_Init(void);
 extern Can_RtnType R_CAN_GlobalStart(void);
 extern Can_RtnType R_CAN_ChStart_CH0(void);
-extern Can_RtnType R_CAN_TrmByTxBuf_CH0(can_txbuf_t, const can_frame_t *);
+extern Can_RtnType R_CAN_TrmByTxBuf_CH0(can_txbuf_t, const can_frame_sfr_t *);
 extern Can_RtnType R_CAN_AbortTrm_CH0(can_txbuf_t);
 extern Can_RtnType R_CAN_CheckTxBufResult_CH0(can_txbuf_t);
-extern Can_RtnType R_CAN_TrmByTRFIFO0_CH0(const can_frame_t *);
-extern Can_RtnType R_CAN_ReadRxBuffer(uint8_t *, can_frame_t *);
-extern Can_RtnType R_CAN_ReadRxFIFO(can_rxfifo_t, can_frame_t *);
-extern Can_RtnType R_CAN_ReadTRFIFO0_CH0(can_frame_t *);
+extern Can_RtnType R_CAN_TrmByTRFIFO0_CH0(const can_frame_sfr_t *);
+extern Can_RtnType R_CAN_ReadRxBuffer(uint8_t *, can_frame_sfr_t *);
+extern Can_RtnType R_CAN_ReadRxFIFO(can_rxfifo_t, can_frame_sfr_t *);
+extern Can_RtnType R_CAN_ReadTRFIFO0_CH0(can_frame_sfr_t *);
 extern Can_RtnType R_CAN_ReadChStatus_CH0(void);
 
 #define R_CAN_ChStart(val1)                 (R_CAN_ChStart_CH0())

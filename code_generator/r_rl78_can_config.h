@@ -22,7 +22,7 @@
 * Copyright (C) 2013 Renesas Electronics Corporation. All rights reserved.     
 *******************************************************************************/
 /******************************************************************************* 
-* File Name    : can_cfg.h
+* File Name    : r_rl78_can_config.h
 * Version      : 1.0 
 * Description  : This is include file for CAN configuration.
 ******************************************************************************/ 
@@ -30,8 +30,8 @@
 * History      : DD.MM.YYYY Version Description 
 *              : 03.29.2013 1.00     First Release 
 ******************************************************************************/
-#ifndef CAN_CFG_H
-#define CAN_CFG_H
+#ifndef R_RL78_CAN_CONFIG_H
+#define R_RL78_CAN_CONFIG_H
 
 #define CAN_ENABLE                  1U
 #define CAN_DISABLE                 0U
@@ -41,7 +41,8 @@
 #define CAN_CFG_DLC_CHECK           CAN_DISABLE
 #define CAN_CFG_DLC_REPLACE         CAN_DISABLE
 #define CAN_CFG_MIRROR              CAN_DISABLE
-#define CAN_CFG_CLOCK               CAN_SOURCE_PCLOCK_2
+//#define CAN_CFG_CLOCK               CAN_SOURCE_PCLOCK_2
+#define CAN_CFG_CLOCK               CAN_SOURCE_MAIN_CLOCK
 #define CAN_CFG_TS_CLOCK            CAN_TS_PCLOCK_2
 #define CAN_CFG_TS_PR               CAN_TS_NO_DIV
 #define CAN_CFG_IT_PR               0U
@@ -51,11 +52,11 @@
 #define CAN_CFG_DLC_ERROR_IE        CAN_DISABLE
 
 /* ---- Rx rule ---- */
-#define CAN_RX_RULE_NUM_CH0         (0U)
+#define CAN_RX_RULE_NUM_CH0         (1U)
 #define CAN_RX_RULE_NUM             CAN_RX_RULE_NUM_CH0
 
 /* ---- Rx buffer ---- */
-#define CAN_CFG_RBNUM               (0U)
+#define CAN_CFG_RBNUM               (1U)
 
 /* ---- RxFIFO ---- */
 #define CAN_CFG_RXFIFO0 \
@@ -91,8 +92,11 @@
 #define CAN_CFG_C0_BAUDRATE_L \
     CAN_CFG_BAUDRATEL(1U)
 
+//#define CAN_CFG_C0_BAUDRATE_H \
+//    CAN_CFG_BAUDRATEH(CAN_TSEG1_8TQ, CAN_TSEG2_7TQ, CAN_SJW_1TQ)
+
 #define CAN_CFG_C0_BAUDRATE_H \
-    CAN_CFG_BAUDRATEH(CAN_TSEG1_13TQ, CAN_TSEG2_2TQ, CAN_SJW_2TQ)
+    CAN_CFG_BAUDRATEH(CAN_TSEG1_5TQ, CAN_TSEG2_2TQ, CAN_SJW_1TQ)
 
 #define CAN_CFG_C0_TRFIFO0_L \
     0x0000U

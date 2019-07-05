@@ -1,4 +1,4 @@
-Renesas Optimizing Linker (W3.01.00 )             24-Jun-2019 15:53:34
+Renesas Optimizing Linker (W3.01.00 )             05-Jul-2019 10:48:08
 
 *** Options ***
 
@@ -19,6 +19,8 @@ Renesas Optimizing Linker (W3.01.00 )             24-Jun-2019 15:53:34
 -Input=DefaultBuild\hdwinit.obj
 -Input=DefaultBuild\r_cg_serial.obj
 -Input=DefaultBuild\r_cg_serial_user.obj
+-Input=DefaultBuild\r_rl78_can_config.obj
+-Input=DefaultBuild\r_rl78_can_drv.obj
 -LIBrary=eel.lib
 -LIBrary=fdl.lib
 -SECURITY_ID=00000000000000000000
@@ -56,37 +58,37 @@ SECTION                            START      END         SIZE   ALIGN
 .monitor1
                                   000000ce  000000d7         a   1
 .const
-                                  00002000  00002000         0   2
+                                  00002000  0000200e         f   2
 EEL_CNST_f
-                                  00002000  00002026        27   2
+                                  00002010  00002036        27   2
 FAL_CNST_f
-                                  00002028  00002067        40   2
+                                  00002038  00002077        40   2
 .text
-                                  00002068  00002156        ef   1
+                                  00002078  00002166        ef   1
 .RLIB
-                                  00002157  00002157         0   1
+                                  00002167  00002167         0   1
 .SLIB
-                                  00002157  00002157         0   1
+                                  00002167  00002167         0   1
 .textf
-                                  00002157  000024ee       398   1
+                                  00002167  00002950       7ea   1
 .constf
-                                  000024f0  000024f0         0   2
+                                  00002952  00002952         0   2
 .data
-                                  000024f0  000026ef       200   2
+                                  00002952  00002b71       220   2
 .sdata
-                                  000026f0  000026f0         0   2
+                                  00002b72  00002b72         0   2
 EEL_CODE
-                                  000026f0  0000410b      1a1c   2
+                                  00002b72  0000458d      1a1c   2
 FAL_CODE
-                                  0000410c  000046d9       5ce   2
+                                  0000458e  00004b5b       5ce   2
 .monitor2
                                   0001fe00  0001ffff       200   1
 .dataR
-                                  000fe300  000fe4ff       200   2
+                                  000fe300  000fe51f       220   2
 .bss
-                                  000fe500  000fe535        36   2
+                                  000fe520  000fe573        54   2
 EEL_UDAT_n
-                                  000fe536  000fe537         2   2
+                                  000fe574  000fe575         2   2
 .sdataR
                                   000ffe20  000ffe20         0   2
 .sbss

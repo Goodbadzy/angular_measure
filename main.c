@@ -8,6 +8,8 @@
 #include "r_cg_adc.h"
 #include "r_cg_wdt.h"
 #include "r_cg_serial.h"
+#include "r_rl78_can_drv.h"
+//#include "r_rl78_can_sfr.h"
 
 /* eeprom library include */
 #include "eel.h"
@@ -34,6 +36,42 @@ type_Z my_data_verify = {0x00};
 uint16_t GulAdcResultBuf[10];
 uint8_t GulCsi0SendBuf[2] = {0x55,0xaa};
 uint8_t GulCsi0RevBuf[10];
+
+/* can related variable */
+/*****************************************************************************/
+unsigned char CANTraStandData[16]={
+	//CiTBpA
+	0x18,							//IDE ,RTR ,THDSE,ID28,ID27,ID26,ID25,ID24
+	0x00,							//ID23,ID22,ID21, ID20,ID19,ID18,ID17,ID16
+	0x00,							//ID15,ID14,ID13, ID12,ID11,ID10,ID09,ID08
+	0x00,							//ID07,ID06,ID05, ID04,ID03,ID02,ID01,ID00
+	//CiTBpB
+	0x00,							//DLC3,DLC2,DLC1, DLC0,----,----,----,----
+	0x00,							//LBL7,LBL6,LBL5, LBL4,LBL3,LBL2,LBL1,LBL0
+	0x00,							//----,----,----,-----,----,----,----,----
+	0x80,							//----,----,----,-----,----,----,----,----
+	//CiTBpC
+	0x55,							//DB0
+	0x55,							//DB1
+	0x55,							//DB2
+	0x55,							//DB3
+	//CiTBpD
+	0x55,							//DB4
+	0x55,							//DB5
+	0x55,							//DB6
+	0x55,							//DB7
+	};
+
+volatile can_frame_sfr_t can_txbuf[1] = {
+ /*IDL,   IDH,   TS,    PTR,   DF0,   DF1,   DF2,   DF3   */
+  {0x004c,0x0000,0x0000,0x7000,0x5555,0x5555,0xaaaa,0xaaaa}
+};
+
+volatile can_frame_sfr_t can_rxbuf[1];
+uint8_t can_rbuf_index[1];
+
+Can_RtnType can_rty;
+
 /*******************************************************************************
 **                      Function Definitions                                  **
 *******************************************************************************/
@@ -45,17 +83,27 @@ void MyErrorHandler(void)
 void R_Systeminit(void)
 {
     /* Set periperal I/O redirection */
-    PIOR0 = 0xDFU;
+    /* for real board */
+	//PIOR0 = 0xDFU;
+    //PIOR1 = 0xDFU;
+    //PIOR4 = 0x1FU;
+    //PIOR5 = 0x08U;
+    //PIOR7 = 0x00U;
+	
+	/* for demo board */
+	PIOR0 = 0xDFU;
     PIOR1 = 0xDFU;
-    PIOR4 = 0x1FU;
-    PIOR5 = 0x08U;
+    PIOR4 = 0x5FU;
+    PIOR5 = 0x09U;
     PIOR7 = 0x00U;
+	
     R_CGC_Get_ResetSource();
     R_CGC_Create();
     R_PORT_Create();
 	R_SAU0_Create();
 	R_CSI00_Create();
     R_ADC_Create();
+	R_CAN_Create();
     //R_WDT_Create();
 
     /* Set invalid memory access detection control */
@@ -99,9 +147,29 @@ void main(void)
 	R_ADC_Start();
 	
 	for(i=0;i<0xffff;i++){my_data[0] = i;}; /* Delay by hand */
-	
 
 	R_ADC_Get_Result(&GulAdcResultBuf[0]);
+	
+	/*=========================================================
+	  CAN TEST CASE
+	  ========================================================*/
+	/* Initialization of CAN */
+	R_CAN_Init();
+	
+	/* Mode Switch */
+	R_CAN_GlobalStart(); /* start global operation mode */
+	R_CAN_ChStart_CH0(); /* start channel operation mode */
+	
+	for(i=0;i<0xffff;i++){my_data[0] = i;}; /* Delay by hand */
+
+	/* Recevier */
+	can_rty = CAN_RTN_BUFFER_EMPTY;
+	while(CAN_RTN_BUFFER_EMPTY == can_rty){
+		can_rty = R_CAN_ReadRxBuffer(&can_rbuf_index[0],(can_frame_sfr_t *)can_rxbuf);
+	}
+	
+	/* Send CAN message */
+	R_CAN_TrmByTxBuf_CH0(0,(const can_frame_sfr_t *)can_txbuf);
 	  
 	/*=========================================================
 	  EEPROM TEST CASE

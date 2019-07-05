@@ -36,6 +36,8 @@
         <Path>code_generator\r_cg_wdt_user.c</Path>
         <Path>code_generator\r_cg_serial.c</Path>
         <Path>code_generator\r_cg_serial_user.c</Path>
+        <Path>code_generator\r_rl78_can_config.c</Path>
+        <Path>code_generator\r_rl78_can_drv.c</Path>
       </Category>
     </Files>
     <DebugOptions>
@@ -64,6 +66,8 @@
           <Path>DefaultBuild\hdwinit.obj</Path>
           <Path>DefaultBuild\r_cg_serial.obj</Path>
           <Path>DefaultBuild\r_cg_serial_user.obj</Path>
+          <Path>DefaultBuild\r_rl78_can_config.obj</Path>
+          <Path>DefaultBuild\r_rl78_can_drv.obj</Path>
           <Path>eel.lib</Path>
           <Path>fdl.lib</Path>
         </LinkOrder>

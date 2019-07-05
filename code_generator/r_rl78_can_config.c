@@ -22,7 +22,7 @@
 * Copyright (C) 2013 Renesas Electronics Corporation. All rights reserved.     
 *******************************************************************************/
 /******************************************************************************* 
-* File Name    : can_cfg.c
+* File Name    : r_rl78_can_config.c
 * Version      : 1.0 
 * Description  : This is source file for CAN configuration.
 ******************************************************************************/ 
@@ -32,11 +32,11 @@
 ******************************************************************************/
 #include "r_rl78_can_drv.h"
 #include "r_rl78_can_sfr.h"
-#include "can_cfg.h"
+#include "r_rl78_can_config.h"
 
 #if CAN_RX_RULE_NUM > 0
 const uint16_t g_rxrule_table[CAN_RX_RULE_NUM][6] = {
-
+    { 0x004CU, 0x0000U, 0x0000U, 0xC000U, 0x8100U, 0x0010U }
 };
 #endif
 

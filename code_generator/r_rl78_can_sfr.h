@@ -40,38 +40,6 @@
  * Address
  */
 
-/* ---- Channel ---- */
-typedef struct {
-    volatile uint16_t CnCFGL;
-    volatile uint16_t CnCFGH;
-    volatile uint16_t CnCTRL;
-    volatile uint16_t CnCTRH;
-    volatile uint16_t CnSTSL;
-    volatile uint16_t CnSTSH;
-    volatile uint16_t CnERFLL;
-    volatile uint16_t CnERFLH;
-} can_ch_top_sfr_t;
-
-typedef struct {
-    volatile uint16_t IDL;
-    volatile uint16_t IDH;
-    volatile uint16_t TS;
-    volatile uint16_t PTR;
-    volatile uint16_t DF0;
-    volatile uint16_t DF1;
-    volatile uint16_t DF2;
-    volatile uint16_t DF3;
-} can_frame_sfr_t;
-
-typedef struct {
-    volatile uint16_t IDL;
-    volatile uint16_t IDH;
-    volatile uint16_t ML;
-    volatile uint16_t MH;
-    volatile uint16_t PL;
-    volatile uint16_t PH;
-} can_rxrule_sfr_t;
-
 /* ---- Tx buffers ---- */
 #define TMCp(txbuf)                 (*((volatile __near uint8_t *)((uint16_t)&TMC0 + txbuf)))
 #define CAN_ADDR_TMSTSp(txbuf)      (volatile __near uint8_t *)((uint16_t)&TMSTS0 + txbuf)

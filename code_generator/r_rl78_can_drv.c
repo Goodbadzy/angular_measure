@@ -34,10 +34,10 @@
 /*****************************************************************************
  Includes   <System Includes> , "Project Includes"
  *****************************************************************************/
-#pragma sfr
 #include "r_rl78_can_drv.h"
 #include "r_rl78_can_sfr.h"
-#include "can_cfg.h"
+#include "r_rl78_can_config.h"
+#include "iodefine.h"
 
 /*****************************************************************************
  Typedef definitions
@@ -54,11 +54,27 @@
 /*****************************************************************************
  Private variables and functions
  *****************************************************************************/
-
+ volatile __near can_frame_sfr_t * p_TxMsgSfr;
+ volatile can_frame_sfr_t * pFrame_tmp;
+ volatile can_txbuf_t tx_buf_debug;
+ volatile can_frame_sfr_t * p_RxBufSfr_bak;
+ volatile uint8_t * p_rxbuf_idx_deb;
 /*****************************************************************************
  Exported global variables and functions (to be accessed by other files)
  *****************************************************************************/
 
+/***********************************************************************************************************************
+* Function Name: R_CAN_Create
+* Description  : This function initializes the CAN controller.
+* Arguments    : None
+* Return Value : None
+***********************************************************************************************************************/
+void R_CAN_Create(void)
+{
+	CAN0EN = 1U; /* Supply CAN clock */
+	CAN0MCKE = 1U;
+} 
+ 
 /****************************************************************************** 
 * Function Name: R_Can_Init
 * Description  : Initialize CAN controller after reset
@@ -72,6 +88,7 @@
 ******************************************************************************/
 Can_RtnType R_CAN_Init(void)
 {
+
 
     /* ==== CAN RAM initialization ==== */
     if ((GSTS & CAN_RAM_INIT_BIT_ON) != 0U)
@@ -264,7 +281,7 @@ Can_RtnType R_CAN_ChStart_CH0(void)
 *                    invalid argument specification
 ******************************************************************************/
 Can_RtnType R_CAN_TrmByTxBuf_CH0(can_txbuf_t txbuf_idx,
-                                 const can_frame_t * pFrame)
+                                 const can_frame_sfr_t * pFrame)
 {
 #if defined(__CHECK__)
     /* ----  Check Tx buffer index ---- */
@@ -274,6 +291,9 @@ Can_RtnType R_CAN_TrmByTxBuf_CH0(can_txbuf_t txbuf_idx,
     }
 #endif
 
+	pFrame_tmp = pFrame;
+	tx_buf_debug = txbuf_idx;
+	
     /* ---- Clear Tx buffer status ---- */
     {
         volatile __near uint8_t * p_TMSTSp;
@@ -285,10 +305,10 @@ Can_RtnType R_CAN_TrmByTxBuf_CH0(can_txbuf_t txbuf_idx,
             return CAN_RTN_STS_ERROR;
         }
     }
-
+	
     /* ---- Store message to tx buffer ---- */
     {
-        volatile __near can_frame_sfr_t * p_TxMsgSfr;
+   
         uint16_t temp_rpage;
 
         /* ---- Save value of GRWCR register ---- */
@@ -298,6 +318,7 @@ Can_RtnType R_CAN_TrmByTxBuf_CH0(can_txbuf_t txbuf_idx,
         GRWCR |= CAN_RAM_WINDOW_BIT_ON;
 
         /* ---- Set frame data ---- */
+		TMDF20 = 0x55;
         p_TxMsgSfr = CAN_ADDR_TMIDLp(txbuf_idx);
         p_TxMsgSfr->IDL = ((can_frame_sfr_t *)pFrame)->IDL;
         p_TxMsgSfr->IDH = ((can_frame_sfr_t *)pFrame)->IDH;
@@ -407,7 +428,7 @@ Can_RtnType R_CAN_CheckTxBufResult_CH0(can_txbuf_t txbuf_idx)
 *                CAN_RTN_ARG_ERROR -
 *                    invalid argument specification
 ******************************************************************************/
-Can_RtnType R_CAN_TrmByTRFIFO0_CH0(const can_frame_t * pFrame)
+Can_RtnType R_CAN_TrmByTRFIFO0_CH0(const can_frame_sfr_t * pFrame)
 {
 #if defined(__CHECK__)
     /* ----  Check Tx/Rx FIFO 0 mode ---- */
@@ -468,7 +489,7 @@ Can_RtnType R_CAN_TrmByTRFIFO0_CH0(const can_frame_t * pFrame)
 *                CAN_RTN_OVERWRITE -
 *                    A frame is overwritten.
 ******************************************************************************/
-Can_RtnType R_CAN_ReadRxBuffer(uint8_t * p_rxbuf_idx, can_frame_t * pFrame)
+Can_RtnType R_CAN_ReadRxBuffer(uint8_t * p_rxbuf_idx, can_frame_sfr_t * pFrame)
 {
     uint8_t  buf_idx;
     uint16_t temp_rbrcf;
@@ -480,7 +501,9 @@ Can_RtnType R_CAN_ReadRxBuffer(uint8_t * p_rxbuf_idx, can_frame_t * pFrame)
     {
         return CAN_RTN_BUFFER_EMPTY;
     }
-
+	
+	p_rxbuf_idx_deb = p_rxbuf_idx;
+	
     /* ---- Get Rx buffer that has new message ---- */
     if (temp_rbrcf != 0)
     {
@@ -510,12 +533,15 @@ Can_RtnType R_CAN_ReadRxBuffer(uint8_t * p_rxbuf_idx, can_frame_t * pFrame)
 
         /* ---- Save value of GRWCR register ---- */
         temp_rpage = GRWCR;
+		
+		pFrame_tmp = pFrame;
 
         /* ---- Select window 1 ---- */
         GRWCR |= CAN_RAM_WINDOW_BIT_ON;
 
         /* ---- Read frame data ---- */
         p_RxBufSfr = CAN_ADDR_RMIDLp(*p_rxbuf_idx);
+		p_RxBufSfr_bak = CAN_ADDR_RMIDLp(*p_rxbuf_idx); /* zhanyi : bak for debug */
         ((can_frame_sfr_t *)pFrame)->IDL = p_RxBufSfr->IDL;
         ((can_frame_sfr_t *)pFrame)->IDH = p_RxBufSfr->IDH;
         ((can_frame_sfr_t *)pFrame)->TS  = p_RxBufSfr->TS; 
@@ -554,9 +580,9 @@ Can_RtnType R_CAN_ReadRxBuffer(uint8_t * p_rxbuf_idx, can_frame_t * pFrame)
 *                CAN_RTN_ARG_ERROR -
 *                    invalid argument specification
 ******************************************************************************/
-extern Can_RtnType R_CAN_ReadRxFIFO0(can_frame_t *);
-extern Can_RtnType R_CAN_ReadRxFIFO1(can_frame_t *);
-Can_RtnType R_CAN_ReadRxFIFO(can_rxfifo_t rxfifo_idx, can_frame_t * pFrame)
+extern Can_RtnType R_CAN_ReadRxFIFO0(can_frame_sfr_t *);
+extern Can_RtnType R_CAN_ReadRxFIFO1(can_frame_sfr_t *);
+Can_RtnType R_CAN_ReadRxFIFO(can_rxfifo_t rxfifo_idx, can_frame_sfr_t * pFrame)
 {
     if (rxfifo_idx == 0) {
         return R_CAN_ReadRxFIFO0(pFrame);
@@ -585,7 +611,7 @@ Can_RtnType R_CAN_ReadRxFIFO(can_rxfifo_t rxfifo_idx, can_frame_t * pFrame)
 *                CAN_RTN_ARG_ERROR -
 *                    invalid argument specification
 ******************************************************************************/
-Can_RtnType R_CAN_ReadRxFIFO0(can_frame_t * pFrame)
+Can_RtnType R_CAN_ReadRxFIFO0(can_frame_sfr_t * pFrame)
 {
     uint16_t    temp_status;
     Can_RtnType rtn_value;
@@ -662,7 +688,7 @@ Can_RtnType R_CAN_ReadRxFIFO0(can_frame_t * pFrame)
 *                CAN_RTN_ARG_ERROR -
 *                    invalid argument specification
 ******************************************************************************/
-Can_RtnType R_CAN_ReadRxFIFO1(can_frame_t * pFrame)
+Can_RtnType R_CAN_ReadRxFIFO1(can_frame_sfr_t * pFrame)
 {
     uint16_t    temp_status;
     Can_RtnType rtn_value;
@@ -743,7 +769,7 @@ Can_RtnType R_CAN_ReadRxFIFO1(can_frame_t * pFrame)
 *                CAN_RTN_ARG_ERROR -
 *                    invalid argument specification
 ******************************************************************************/
-Can_RtnType R_CAN_ReadTRFIFO0_CH0(can_frame_t * pFrame)
+Can_RtnType R_CAN_ReadTRFIFO0_CH0(can_frame_sfr_t * pFrame)
 {
     uint16_t    temp_status;
     Can_RtnType rtn_value;
