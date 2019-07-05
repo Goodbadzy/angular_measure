@@ -1,4 +1,4 @@
-Renesas Optimizing Linker (W3.01.00 )             05-Jul-2019 10:48:08
+Renesas Optimizing Linker (W3.01.00 )             05-Jul-2019 13:29:37
 
 *** Options ***
 
@@ -46,6 +46,11 @@ Renesas Optimizing Linker (W3.01.00 )             05-Jul-2019 10:48:08
 
 *** Error information ***
 
+W0561100:Cannot find "EEL_CODE" specified in option "start"
+W0561100:Cannot find "FAL_CODE" specified in option "start"
+W0561100:Cannot find "EEL_SDAT" specified in option "start"
+W0561100:Cannot find "FAL_DATA" specified in option "start"
+
 *** Mapping List ***
 
 SECTION                            START      END         SIZE   ALIGN
@@ -70,17 +75,13 @@ FAL_CNST_f
 .SLIB
                                   00002167  00002167         0   1
 .textf
-                                  00002167  00002950       7ea   1
+                                  00002167  00002842       6dc   1
 .constf
-                                  00002952  00002952         0   2
+                                  00002844  00002844         0   2
 .data
-                                  00002952  00002b71       220   2
+                                  00002844  00002a63       220   2
 .sdata
-                                  00002b72  00002b72         0   2
-EEL_CODE
-                                  00002b72  0000458d      1a1c   2
-FAL_CODE
-                                  0000458e  00004b5b       5ce   2
+                                  00002a64  00002a64         0   2
 .monitor2
                                   0001fe00  0001ffff       200   1
 .dataR
@@ -93,7 +94,3 @@ EEL_UDAT_n
                                   000ffe20  000ffe20         0   2
 .sbss
                                   000ffe20  000ffe20         0   2
-EEL_SDAT
-                                  000ffe20  000ffe28         9   2
-FAL_DATA
-                                  000ffe2a  000ffe2b         2   2

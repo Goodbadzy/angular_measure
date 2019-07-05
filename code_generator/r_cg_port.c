@@ -57,17 +57,13 @@ Global variables and functions
 void R_PORT_Create(void)
 {
     P0 = _01_Pn0_OUTPUT_1;
-    P1 = _00_Pn0_OUTPUT_0 | _00_Pn2_OUTPUT_0;
+    P1 = _01_Pn0_OUTPUT_1 | _00_Pn2_OUTPUT_0;
     P6 = _00_Pn0_OUTPUT_0 | _00_Pn2_OUTPUT_0 | _08_Pn3_OUTPUT_1;
-    PSRSEL = _00_PSR12_NORMAL | _00_PSR10_NORMAL;
+    //PSRSEL = _00_PSR12_NORMAL | _00_PSR10_NORMAL;
     PM0 = _00_PMn0_MODE_OUTPUT | _FE_PM0_DEFAULT;
     PM1 = _00_PMn0_MODE_OUTPUT | _02_PMn1_MODE_INPUT | _00_PMn2_MODE_OUTPUT | _08_PMn3_NOT_USE | _10_PMn4_NOT_USE |
           _20_PMn5_NOT_USE | _40_PMn6_NOT_USE | _80_PMn7_NOT_USE;
     PM6 = _00_PMn0_MODE_OUTPUT | _02_PMn1_MODE_INPUT | _00_PMn2_MODE_OUTPUT | _00_PMn3_MODE_OUTPUT | _F0_PM6_DEFAULT;
-	
-	P7 = 0xff;
-	PM7  &= 0xfb; 
-	//PMC7 = 0x00;
 }
 
 /* Start user code for adding. Do not edit comment generated here */

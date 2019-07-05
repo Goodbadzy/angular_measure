@@ -84,18 +84,18 @@ void R_Systeminit(void)
 {
     /* Set periperal I/O redirection */
     /* for real board */
-	//PIOR0 = 0xDFU;
-    //PIOR1 = 0xDFU;
-    //PIOR4 = 0x1FU;
-    //PIOR5 = 0x08U;
-    //PIOR7 = 0x00U;
-	
-	/* for demo board */
 	PIOR0 = 0xDFU;
     PIOR1 = 0xDFU;
-    PIOR4 = 0x5FU;
+    PIOR4 = 0x1FU;
     PIOR5 = 0x09U;
     PIOR7 = 0x00U;
+	
+	/* for demo board */
+	//PIOR0 = 0xDFU;
+    //PIOR1 = 0xDFU;
+    //PIOR4 = 0x5FU;
+    //PIOR5 = 0x09U;
+    //PIOR7 = 0x00U;
 	
     R_CGC_Get_ResetSource();
     R_CGC_Create();
@@ -125,8 +125,8 @@ void main(void)
 	/*=========================================================
 	PORT TEST CASE
 	========================================================*/
-	P1 = 0xff;
-	P1 = 0x00;
+	//P1 = 0xff;
+	//P1 = 0x00;
 	
 	/*=========================================================
 	CSI TEST CASE
@@ -169,7 +169,9 @@ void main(void)
 	}
 	
 	/* Send CAN message */
+	while(1){
 	R_CAN_TrmByTxBuf_CH0(0,(const can_frame_sfr_t *)can_txbuf);
+	}
 	  
 	/*=========================================================
 	  EEPROM TEST CASE
